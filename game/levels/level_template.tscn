@@ -1,0 +1,93 @@
+[gd_scene load_steps=12 format=3 uid="uid://cmvmwkihkjmf2"]
+
+[ext_resource type="Script" path="res://game/levels/level.gd" id="1_rvjwx"]
+[ext_resource type="PackedScene" uid="uid://bmx3fh8uf21do" path="res://game/hud.tscn" id="2_vjub0"]
+[ext_resource type="PackedScene" uid="uid://crwwqpa2gws2w" path="res://game/barricades/barricade_system.tscn" id="3_k5js8"]
+[ext_resource type="PackedScene" uid="uid://pskp5dj0g156" path="res://game/characters/player/player.tscn" id="4_mcv3j"]
+[ext_resource type="PackedScene" uid="uid://cjkqtvf8iv7xr" path="res://game/levels/exit_trigger.tscn" id="5_hkcoo"]
+[ext_resource type="PackedScene" uid="uid://chuw2mefuhdaa" path="res://game/barricades/wood.tscn" id="6_fholq"]
+[ext_resource type="PackedScene" uid="uid://bpputajcxvx8o" path="res://game/characters/people/people.tscn" id="7_7aj27"]
+[ext_resource type="PackedScene" uid="uid://06n6mjdqek0j" path="res://game/levels/one_time_audio_trigger.tscn" id="8_ahih5"]
+
+[sub_resource type="TileSet" id="TileSet_drycq"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 2
+physics_layer_0/collision_mask = 7
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0htvr"]
+size = Vector2(100, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ime5"]
+size = Vector2(100, 100)
+
+[node name="Level" type="TileMap" node_paths=PackedStringArray("player")]
+y_sort_enabled = true
+tile_set = SubResource("TileSet_drycq")
+format = 2
+layer_0/name = "Floor"
+layer_0/y_sort_enabled = true
+layer_0/z_index = -2
+layer_1/name = "Floor_Decals"
+layer_1/y_sort_enabled = true
+layer_1/z_index = -2
+layer_1/tile_data = PackedInt32Array()
+layer_2/name = "Blueprint"
+layer_2/y_sort_enabled = true
+layer_2/z_index = -1
+layer_2/tile_data = PackedInt32Array()
+layer_3/name = "Barricades"
+layer_3/y_sort_enabled = true
+layer_3/z_index = -1
+layer_3/tile_data = PackedInt32Array()
+layer_4/name = "Ground"
+layer_4/y_sort_enabled = true
+layer_4/tile_data = PackedInt32Array()
+layer_5/name = "Ground_Decals"
+layer_5/y_sort_enabled = true
+layer_5/tile_data = PackedInt32Array()
+layer_6/name = "Foreground"
+layer_6/y_sort_enabled = true
+layer_6/z_index = 1
+layer_6/tile_data = PackedInt32Array()
+script = ExtResource("1_rvjwx")
+player = NodePath("Player")
+blueprint_layer = 2
+barricade_layer = 3
+
+[node name="Hud" parent="." instance=ExtResource("2_vjub0")]
+
+[node name="BarricadeSystem" parent="." node_paths=PackedStringArray("level", "player") instance=ExtResource("3_k5js8")]
+level = NodePath("..")
+player = NodePath("../Player")
+
+[node name="Player" parent="." instance=ExtResource("4_mcv3j")]
+position = Vector2(169, 146)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+
+[node name="ExitTrigger" parent="." instance=ExtResource("5_hkcoo")]
+position = Vector2(390, 147)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitTrigger"]
+shape = SubResource("RectangleShape2D_0htvr")
+
+[node name="Wood" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Wood" parent="Wood" instance=ExtResource("6_fholq")]
+position = Vector2(198, 270)
+
+[node name="People" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="People" parent="People" instance=ExtResource("7_7aj27")]
+position = Vector2(301, 297)
+
+[node name="Voicelines" type="Node2D" parent="."]
+
+[node name="OneTimeAudioTrigger" parent="Voicelines" instance=ExtResource("8_ahih5")]
+position = Vector2(538, 295)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Voicelines/OneTimeAudioTrigger"]
+shape = SubResource("RectangleShape2D_3ime5")
+debug_color = Color(0, 0.647147, 0.218965, 0.42)

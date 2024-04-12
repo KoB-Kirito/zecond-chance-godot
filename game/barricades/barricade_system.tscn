@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://crwwqpa2gws2w"]
+
+[ext_resource type="Script" path="res://game/barricades/barricade_system.gd" id="1_j1sdf"]
+[ext_resource type="AudioStream" uid="uid://dkb7wp17b0uj7" path="res://assets/audio/effects/wood_drop_1.wav" id="2_4y0nx"]
+[ext_resource type="AudioStream" uid="uid://b4tnfajv6ux7r" path="res://assets/audio/effects/wood_drop_2.wav" id="3_ubvv6"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ot1qt"]
+playback_mode = 1
+random_pitch = 2.0
+streams_count = 2
+stream_0/stream = ExtResource("2_4y0nx")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("3_ubvv6")
+stream_1/weight = 1.0
+
+[node name="BarricadeSystem" type="Node"]
+script = ExtResource("1_j1sdf")
+
+[node name="RayCast" type="RayCast2D" parent="."]
+unique_name_in_owner = true
+collision_mask = 7
+
+[node name="snd_place" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_ot1qt")

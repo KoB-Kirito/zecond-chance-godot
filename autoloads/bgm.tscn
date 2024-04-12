@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxa0nfhckdtgj"]
+
+[ext_resource type="Script" path="res://autoloads/bgm.gd" id="1_f37fx"]
+[ext_resource type="AudioStream" uid="uid://8ewls2g3bbcr" path="res://assets/audio/music/game_over.ogg" id="2_6ytam"]
+
+[node name="BGM" type="Node"]
+script = ExtResource("1_f37fx")
+game_over = ExtResource("2_6ytam")
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+bus = &"Music"

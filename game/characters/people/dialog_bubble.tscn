@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=3 uid="uid://dhq6k5l1banr3"]
+
+[ext_resource type="Script" path="res://game/characters/people/dialog_bubble.gd" id="1_qkh3h"]
+
+[node name="DialogBubble" type="Node2D"]
+z_index = 10
+script = ExtResource("1_qkh3h")
+
+[node name="Bubble" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+auto_translate_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -8.5
+offset_top = -23.0
+offset_right = 8.5
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Margin" type="MarginContainer" parent="Bubble"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="TextLabel" type="Label" parent="Bubble/Margin"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Dialog"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="minimum_size_changed" from="Bubble/Margin/TextLabel" to="." method="_on_text_label_minimum_size_changed"]

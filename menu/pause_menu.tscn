@@ -1,0 +1,123 @@
+[gd_scene load_steps=8 format=3 uid="uid://dn1ulb21furnc"]
+
+[ext_resource type="Script" path="res://menu/pause_menu.gd" id="1_f0b4n"]
+[ext_resource type="AudioStream" uid="uid://8ewls2g3bbcr" path="res://assets/audio/music/game_over.ogg" id="2_81bg2"]
+[ext_resource type="AudioStream" uid="uid://nrw27asgibxb" path="res://assets/audio/effects/zombie_1.wav" id="2_kswoy"]
+[ext_resource type="AudioStream" uid="uid://dgxob557vmp1n" path="res://assets/audio/effects/zombie_2.wav" id="3_f67cc"]
+[ext_resource type="AudioStream" uid="uid://dgfqew68i50at" path="res://assets/audio/effects/zombie_3.wav" id="4_ycy6b"]
+[ext_resource type="AudioStream" uid="uid://2fmwu3wjuwwp" path="res://assets/audio/effects/news_report_1.wav" id="5_45cgp"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_xuifs"]
+random_pitch = 1.5
+streams_count = 3
+stream_0/stream = ExtResource("2_kswoy")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("3_f67cc")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("4_ycy6b")
+stream_2/weight = 1.0
+
+[node name="PauseMenu" type="CanvasLayer"]
+process_mode = 3
+layer = 99
+script = ExtResource("1_f0b4n")
+
+[node name="Fade" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.486275)
+
+[node name="TitleLabel" type="Label" parent="Fade"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -25.0
+offset_top = 26.0
+offset_right = 26.0
+offset_bottom = 49.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 34
+text = "PAUSE"
+
+[node name="GridContainer" type="GridContainer" parent="Fade"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -112.0
+offset_top = -38.5
+offset_right = 112.0
+offset_bottom = 38.5
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
+[node name="MusicLabel" type="Label" parent="Fade/GridContainer"]
+layout_mode = 2
+text = "Musik"
+
+[node name="MusicSlider" type="HSlider" parent="Fade/GridContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 23)
+layout_mode = 2
+min_value = -30.0
+max_value = 6.0
+
+[node name="EffectLabel" type="Label" parent="Fade/GridContainer"]
+auto_translate_mode = 1
+layout_mode = 2
+text = "Effekte"
+
+[node name="EffectSlider" type="HSlider" parent="Fade/GridContainer"]
+unique_name_in_owner = true
+auto_translate_mode = 1
+custom_minimum_size = Vector2(150, 23)
+layout_mode = 2
+min_value = -30.0
+max_value = 6.0
+
+[node name="VoiceLabel" type="Label" parent="Fade/GridContainer"]
+auto_translate_mode = 1
+layout_mode = 2
+text = "Stimmen"
+
+[node name="VoiceSlider" type="HSlider" parent="Fade/GridContainer"]
+unique_name_in_owner = true
+auto_translate_mode = 1
+custom_minimum_size = Vector2(150, 23)
+layout_mode = 2
+min_value = -30.0
+max_value = 6.0
+
+[node name="snd_music" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("2_81bg2")
+bus = &"Music"
+
+[node name="snd_effects" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_xuifs")
+bus = &"SFX"
+
+[node name="snd_voices" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("5_45cgp")
+bus = &"Voices"
+
+[connection signal="gui_input" from="Fade" to="." method="_on_fade_gui_input"]
+[connection signal="drag_started" from="Fade/GridContainer/MusicSlider" to="." method="_on_music_slider_drag_started"]
+[connection signal="focus_entered" from="Fade/GridContainer/MusicSlider" to="." method="_on_music_slider_drag_started"]
+[connection signal="value_changed" from="Fade/GridContainer/MusicSlider" to="." method="_on_music_slider_value_changed"]
+[connection signal="drag_started" from="Fade/GridContainer/EffectSlider" to="." method="_on_effect_slider_drag_started"]
+[connection signal="focus_entered" from="Fade/GridContainer/EffectSlider" to="." method="_on_effect_slider_drag_started"]
+[connection signal="value_changed" from="Fade/GridContainer/EffectSlider" to="." method="_on_effect_slider_value_changed"]
+[connection signal="drag_started" from="Fade/GridContainer/VoiceSlider" to="." method="_on_voice_slider_drag_started"]
+[connection signal="focus_entered" from="Fade/GridContainer/VoiceSlider" to="." method="_on_voice_slider_drag_started"]
+[connection signal="value_changed" from="Fade/GridContainer/VoiceSlider" to="." method="_on_voice_slider_value_changed"]

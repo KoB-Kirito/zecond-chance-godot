@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjkqtvf8iv7xr"]
+
+[ext_resource type="Script" path="res://game/levels/exit_trigger.gd" id="1_qp8vc"]
+
+[node name="ExitTrigger" type="Area2D"]
+script = ExtResource("1_qp8vc")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

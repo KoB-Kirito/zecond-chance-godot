@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://chuw2mefuhdaa"]
+
+[ext_resource type="Script" path="res://game/barricades/wood.gd" id="1_apbu7"]
+[ext_resource type="Texture2D" uid="uid://dq27gwy32y84a" path="res://game/barricades/wood.png" id="1_qr8hi"]
+[ext_resource type="AudioStream" uid="uid://3p0msgcctlo6" path="res://assets/audio/effects/wood_pickup.wav" id="3_h8gbu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xkaiw"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_e4bju"]
+playback_mode = 2
+random_pitch = 2.0
+random_volume_offset_db = 2.0
+streams_count = 1
+stream_0/stream = ExtResource("3_h8gbu")
+stream_0/weight = 1.0
+
+[node name="Wood" type="Node2D"]
+script = ExtResource("1_apbu7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -2)
+texture = ExtResource("1_qr8hi")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_xkaiw")
+
+[node name="snd_pickup" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_e4bju")
+bus = &"SFX"
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
