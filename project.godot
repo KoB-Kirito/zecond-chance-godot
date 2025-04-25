@@ -13,7 +13,7 @@ config_version=5
 config/name="Z-econd Chance"
 config/description="Manajam3"
 run/main_scene="res://menu/main_menu.tscn"
-config/features=PackedStringArray("4.3", "GL Compatibility")
+config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.png"
 
 [audio]
